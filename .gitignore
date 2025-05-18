@@ -1,0 +1,16 @@
+.env
+.pyc
+portfolio.db
+.DS_Store
+/workspace.xml
+/dataSources.local.xml
+/*.db
+*.sql~
+__pycache__/
+.venv/
+/shelf/
+/httpRequests/
+/dataSources/
+.idea/
+/var/
+CLAUDE/

@@ -1,0 +1,68 @@
+/portfolio_monitor
+├── /backend
+│   ├── /app
+│   │   ├── /api
+│   │   │   ├── __init__.py
+│   │   │   ├── auth.py          # Эндпоинты для регистрации/авторизации (JWT)
+│   │   │   ├── portfolio.py     # Эндпоинты для управления портфелем
+│   │   │   ├── market.py        # Эндпоинты для получения данных с Yahoo Finance
+│   │   │   └── ai.py            # Эндпоинты для AI-анализа
+│   │   ├── /models
+│   │   │   ├── __init__.py
+│   │   │   ├── user.py          # Модель пользователя (SQLAlchemy)
+│   │   │   ├── portfolio.py     # Модель портфеля и транзакций
+│   │   ├── /services
+│   │   │   ├── __init__.py
+│   │   │   ├── yahoo_finance.py # Логика работы с Yahoo Finance API
+│   │   │   ├── ai_analysis.py   # Логика AI-анализа портфеля
+│   │   │   └── cache.py         # Логика кэширования (Redis)
+│   │   ├── /utils
+│   │   │   ├── __init__.py
+│   │   │   └── jwt_utils.py     # Утилиты для работы с JWT
+│   │   ├── config.py            # Конфигурация (DB, Redis, Kafka, etc.)
+│   │   ├── main.py              # Точка входа Flask-приложения
+│   │   └── requirements.txt      # Зависимости Python
+│   ├── /tests
+│   │   ├── test_auth.py         # Тесты для авторизации
+│   │   ├── test_portfolio.py    # Тесты для портфеля
+│   │   └── test_market.py       # Тесты для Yahoo Finance
+│   ├── Dockerfile               # Docker-файл для бэкенда
+│   └── .env                     # Переменные окружения
+├── /frontend
+│   ├── /src
+│   │   ├── /components
+│   │   │   ├── Login.js         # Компонент авторизации
+│   │   │   ├── Portfolio.js     # Компонент портфеля
+│   │   │   └── Dashboard.js     # Главная панель
+│   │   ├── /pages
+│   │   │   ├── Home.js          # Главная страница
+│   │   │   ├── Login.js         # Страница логина
+│   │   │   └── Portfolio.js     # Страница портфеля
+│   │   ├── App.js               # Главный компонент React
+│   │   ├── index.js             # Точка входа React
+│   │   └── tailwind.css         # Стили Tailwind
+│   ├── package.json             # Зависимости фронтенда
+│   ├── Dockerfile               # Docker-файл для фронтенда
+│   └── .env                     # Переменные окружения
+├── /worker
+│   ├── main.py                  # Kafka-консьюмер для обновления данных
+│   ├── requirements.txt         # Зависимости воркера
+│   └── Dockerfile               # Docker-файл для воркера
+├── /ai
+│   ├── model.py                 # Код AI-модели (например, Scikit-learn)
+│   ├── train.py                 # Скрипт обучения модели
+│   ├── requirements.txt         # Зависимости AI
+│   └── Dockerfile               # Docker-файл для AI
+├── /scripts
+│   ├── setup_db.sql            # SQL-скрипт для инициализации MySQL
+│   └── seed_data.py            # Скрипт для заполнения тестовыми данными
+├── /monitoring
+│   ├── prometheus.yml          # Конфигурация Prometheus
+│   └── grafana/                # Конфигурация Grafana
+├── docker-compose.yml           # Конфигурация Docker Compose
+├── .github/workflows/ci.yml     # CI/CD пайплайн (GitHub Actions)
+├── README.md                    # Описание проекта
+└── .gitignore                   # Игнорируемые файлы
+
+
+

@@ -1,0 +1,71 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=mysql+pymysql://user:password@db:3306/invest_portfolio
+      - REDIS_URL=redis://redis:6379/0
+      - KAFKA_BROKER=kafka:9092
+      - JWT_SECRET_KEY=7f0a597d7fef12c51ef6d0a4bc2704ac928c384c37638d2ea808041d6ea113e4
+    depends_on:
+      - db
+      - redis
+      - kafka
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+  worker:
+    build: ./worker
+    environment:
+      - KAFKA_BROKER=kafka:9092
+    depends_on:
+      - kafka
+  ai:
+    build: ./ai
+    depends_on:
+      - backend
+  db:
+    image: mysql:8.0
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: invest_portfolio
+      MYSQL_USER: user
+      MYSQL_PASSWORD: testpass
+    volumes:
+      - db_data:/var/lib/mysql
+  redis:
+    image: redis:6.2
+  kafka:
+    image: confluentinc/cp-kafka:7.0.1
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.0.1
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3001:3000"
+volumes:
+  db_data:
