@@ -18,8 +18,12 @@ def create_app(config_name='development'):
     from .api import auth, portfolio, assets, analysis
     app.register_blueprint(auth.auth_bp, url_prefix='/api/auth')
     app.register_blueprint(portfolio.portfolio_bp, url_prefix='/api/portfolios')
-    app.register_blueprint(assets.assets_bp, url_prefix='/api/assets')
+    app.register_blueprint(assets.asset_bp, url_prefix='/api/assets')
     app.register_blueprint(analysis.analysis_bp, url_prefix='/api/analysis')
+
+    @app.route('/')
+    def index():
+        return {'message': 'Backend is running!'}
 
     # Error handler
     @app.errorhandler(404)

@@ -1,8 +1,6 @@
 import os
 from datetime import timedelta
 
-from CLAUDE.config_file import Config
-
 
 class Config:
     """Base configuration."""

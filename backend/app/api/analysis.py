@@ -14,7 +14,7 @@ analysis_bp = Blueprint('analysis', __name__)
 def get_portfolio_performance(portfolio_id):
     """Portfolio performance analysis"""
     #NOT READY
-    from ..services.ai_analysis import *
+    #from ..services.ai_analysis import *
     # current_user_id = get_jwt_identity()
     performance_data = None
 

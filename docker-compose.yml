@@ -1,9 +1,9 @@
-version: '3.8'
 services:
   backend:
     build: ./backend
     ports:
-      - "5000:5000"
+      - "5001:5000"
+    env_file: .env
     environment:
       - DATABASE_URL=mysql+pymysql://user:password@db:3306/invest_portfolio
       - REDIS_URL=redis://redis:6379/0
@@ -12,23 +12,23 @@ services:
     depends_on:
       - db
       - redis
-      - kafka
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
-  worker:
-    build: ./worker
-    environment:
-      - KAFKA_BROKER=kafka:9092
-    depends_on:
-      - kafka
-  ai:
-    build: ./ai
-    depends_on:
-      - backend
+#      - kafka
+#  frontend:
+#    build: ./frontend
+#    ports:
+#      - "3000:3000"
+#    depends_on:
+#      - backend
+#  worker:
+#    build: ./worker
+#    environment:
+#      - KAFKA_BROKER=kafka:9092
+#    depends_on:
+#      - kafka
+#  ai:
+#    build: ./ai
+#    depends_on:
+#      - backend
   db:
     image: mysql:8.0
     restart: always
@@ -43,29 +43,29 @@ services:
       - db_data:/var/lib/mysql
   redis:
     image: redis:6.2
-  kafka:
-    image: confluentinc/cp-kafka:7.0.1
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    depends_on:
-      - zookeeper
-  zookeeper:
-    image: confluentinc/cp-zookeeper:7.0.1
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-  prometheus:
-    image: prom/prometheus
-    volumes:
-      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3001:3000"
+#  kafka:
+#    image: confluentinc/cp-kafka:7.0.1
+#    environment:
+#      KAFKA_BROKER_ID: 1
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#    depends_on:
+#      - zookeeper
+#  zookeeper:
+#    image: confluentinc/cp-zookeeper:7.0.1
+#    environment:
+#      ZOOKEEPER_CLIENT_PORT: 2181
+#      ZOOKEEPER_TICK_TIME: 2000
+#  prometheus:
+#    image: prom/prometheus
+#    volumes:
+#      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+#    ports:
+#      - "9090:9090"
+#  grafana:
+#    image: grafana/grafana
+#    ports:
+#      - "3001:3000"
 volumes:
   db_data:

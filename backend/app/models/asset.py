@@ -4,7 +4,6 @@ Asset model
 from datetime import datetime
 from sqlalchemy import func
 from ..extensions import db, cache
-from ..services.yahoo_finance import YahooFinanceService
 
 class Asset(db.Model):
     __tablename__ = "asset"
@@ -27,6 +26,7 @@ class Asset(db.Model):
     transactions = db.relationship('Transaction', backref='asset', lazy='dynamic')
 
     def get_current_price(self):
+        from ..services.yahoo_finance import YahooFinanceService
         #check cache or db
         latest_price = AssetPrice.query.filer_by(asset_id=self.id).order_by(AssetPrice.date.desc()).first()
 
