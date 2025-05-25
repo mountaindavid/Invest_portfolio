@@ -10,7 +10,7 @@ db = SQLAlchemy()
 jwt = JWTManager()
 migrate = Migrate()
 cache = Cache(config={
-    "CACHE_TYPE": "simple",
+    "CACHE_TYPE": "redis",
     "CACHE_REDIS_URL": "redis://redis:6379/0",
     "CACHE_DEFAULT_TIMEOUT": 300
 })
