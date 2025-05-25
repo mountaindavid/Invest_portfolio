@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}Server Error{% endblock %}
+
+{% block content %}
+<h1>500 - Internal Server Error</h1>
+<p>Oops! Something went wrong on our end.</p>
+<a href="/">Back to Home</a>
+{% endblock %}
