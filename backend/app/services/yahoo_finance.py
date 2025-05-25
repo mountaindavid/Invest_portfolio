@@ -1,14 +1,12 @@
 """
 Service for working with Yahoo Finance API
 """
-import os
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime
 import yfinance as yf
 import pandas as pd
 from ..extensions import cache, db
 from ..models.asset import Asset, AssetPrice, AssetMetric
-#from ..models.dividend import Dividend
 
 
 class YahooFinanceService:
